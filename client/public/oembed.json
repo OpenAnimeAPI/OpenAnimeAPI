@@ -1,0 +1,10 @@
+{
+    "type": "photo",
+    "title": "OpenAnimeAPI - Open Source Anime & Manga API",
+
+    "provider_name": "OpenAnimeAPI",
+    "provider_url": "https://openanimeapi.com",
+
+    "author_name": "Get information about any Anime, Manga or Character!",
+    "author_url": "https://openanimeapi.com"
+}
