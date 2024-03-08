@@ -15,7 +15,7 @@ services:
       - /app/node_modules
   db:
     container_name: openanimeapi_db
-    image: postgres
+    image: postgres:16.2
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -26,7 +26,7 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
   testing_db:
     container_name: openanimeapi_testing_db
-    image: postgres
+    image: postgres:16.2
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -46,4 +46,4 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./pgadmin_data:/var/lib/pgadmin 
+      - ./pgadmin_data:/var/lib/pgadmin/data
