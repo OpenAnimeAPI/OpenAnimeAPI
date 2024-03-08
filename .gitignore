@@ -1,5 +1,11 @@
-/postgres_data/
-/postgres_testing_data/
-/pgadmin_data/
+# Directories
+**/dist/
+**/node_modules/
+**/postgres_data/
+**/postgres_testing_data/
+**/pgadmin_data/
+**/.yarn/
+**/Dev/Test
 
+# Files
 *.env
