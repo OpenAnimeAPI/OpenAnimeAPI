@@ -7,9 +7,12 @@ Create a `.env` file in the root directory and add the following:
 
 ```
 ENVIRONMENT=DEV
+API_URL=http://api:3001
 API_PORT=3001
 
 DOCKER_REGISTRY=localhost
+
+TOKEN_SECRET=[desired string]
 
 DB_TYPE=postgres
 DB_HOST=db
