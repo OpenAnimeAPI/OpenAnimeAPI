@@ -36,6 +36,23 @@ export enum AnimeSeason {
     WINTER = "winter"
 };
 
+export enum AnimeSource {
+    LIGHT_NOVEL = "light novel",
+    WEB_NOVEL = "web novel",
+    NOVEL = "novel",
+    ANIME = "anime",
+    VISUAL_NOVEL = "visual novel",
+    VIDEO_GAME = "video game",
+    DOUJINSHI = "doujinshi",
+    COMIC = "comic",
+    MANGA = "manga",
+    LIVE_ACTION = "live action",
+    GAME = "game",
+    MULTIMEDIA_PROJECT = "multimedia project",
+    PICTURE_BOOK = "picture book",
+    OTHER = "other"
+};
+
 @Entity('anime')
 @Unique(['title'])
 class Anime extends BaseEntity {
@@ -49,6 +66,7 @@ class Anime extends BaseEntity {
         format: AnimeFormat,
         episodes: number,
         episode_duration: number,
+        source: AnimeSource,
         status: AnimeStatus,
         release_year: number,
         start_date: Date,
@@ -69,6 +87,7 @@ class Anime extends BaseEntity {
         this.format = format;
         this.episodes = episodes;
         this.episode_duration = episode_duration;
+        this.source = source;
         this.status = status;
         this.release_year = release_year;
         this.start_date = start_date;
@@ -108,6 +127,13 @@ class Anime extends BaseEntity {
 
     @Column({ type: "int" })
     episode_duration: number; // Duration calculated in minutes
+
+    @Column({
+        type: "enum",
+        enum: AnimeSource,
+        default: AnimeSource.MANGA
+    })
+    source: AnimeSource;
 
     @Column({ 
         type: "enum", 
