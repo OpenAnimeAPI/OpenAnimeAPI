@@ -19,7 +19,7 @@ class Studio extends BaseEntity {
         created_at: Date,
         updated_at: Date,
 
-        anime: Anime
+        anime: Anime[]
     ) {
         super();
 
@@ -45,11 +45,11 @@ class Studio extends BaseEntity {
     updated_at: Date;
 
     /* Relationships */
-    @ManyToOne(
+    @OneToMany(
         () => Anime,
-        (anime: Anime) => anime.studios
+        (anime: Anime) => anime.studio
     )
-    anime: Anime;
+    anime: Anime[];
 };
 
 export default Studio;

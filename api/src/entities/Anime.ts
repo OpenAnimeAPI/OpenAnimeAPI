@@ -5,7 +5,7 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany,
+    ManyToOne,
     ManyToMany,
     Unique,
     JoinTable
@@ -19,33 +19,58 @@ export enum AnimeStatus {
     FINISHED = "finished"
 };
 
+export enum AnimeFormat {
+    TELEVISION = "TV",
+    TELEVISION_SHORT = "TV short",
+    MOVIE = "movie",
+    SPECIAL = "special",
+    ORIGINAL_VIDEO_ANIMATION = "ova",
+    ORIGINAL_NET_ANIMATION = "ona",
+    MUSIC = "music"
+};
+
+export enum AnimeSeason {
+    SPRING = "spring",
+    SUMMER = "summer",
+    FALL = "fall",
+    WINTER = "winter"
+};
+
 @Entity('anime')
 @Unique(['title'])
 class Anime extends BaseEntity {
 
     constructor(
         id: number,
-        title: string,
+        title_english: string,
+        title_romaji: string,
+        title_native: string,
         description: string,
-        format: string,
+        format: AnimeFormat,
         episodes: number,
-        status: string,
+        episode_duration: number,
+        status: AnimeStatus,
+        release_year: number,
         start_date: Date,
         end_date: Date,
         created_at: Date,
         updated_at: Date,
 
         characters: Character[],
-        studios: Studio[]
+        studio: Studio
     ) {
         super();
 
         this.id = id;
-        this.title = title;
+        this.title_english = title_english;
+        this.title_romaji = title_romaji;
+        this.title_native = title_native;
         this.description = description;
         this.format = format;
         this.episodes = episodes;
+        this.episode_duration = episode_duration;
         this.status = status;
+        this.release_year = release_year;
         this.start_date = start_date;
         this.end_date = end_date;
         this.created_at = created_at;
@@ -53,30 +78,46 @@ class Anime extends BaseEntity {
 
         /* Relationships */
         this.characters = characters;
-        this.studios = studios;
+        this.studio = studio;
     };
 
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({ type: "varchar", length: 255, nullable: false })
-    title: string;
+    title_english: string;
+
+    @Column({ type: "varchar", length: 255, nullable: false })
+    title_romaji: string;
+
+    @Column({ type: "varchar", length: 255, nullable: false })
+    title_native: string;
 
     @Column({ type : "varchar", length: 255, nullable: false })
     description: string;
 
-    @Column({ type: "varchar", length: 255, nullable: false })
-    format: string;
+    @Column({ 
+        type: "enum", 
+        enum: AnimeFormat,
+        default: AnimeFormat.TELEVISION
+    })
+    format: AnimeFormat;
 
     @Column({ type: "int" })
     episodes: number;
+
+    @Column({ type: "int" })
+    episode_duration: number; // Duration calculated in minutes
 
     @Column({ 
         type: "enum", 
         enum: AnimeStatus, 
         default: AnimeStatus.UPCOMING
     })
-    status: string;
+    status: AnimeStatus;
+
+    @Column({ type: "int" })
+    release_year: number;
 
     @Column({ type: "timestamptz" })
     start_date: Date
@@ -98,11 +139,11 @@ class Anime extends BaseEntity {
     @JoinTable()
     characters: Character[];
 
-    @OneToMany(
+    @ManyToOne(
         () => Studio,
         (studio: Studio) => studio.anime
     )
-    studios: Studio[];
+    studio: Studio;
 };
 
 export default Anime;
