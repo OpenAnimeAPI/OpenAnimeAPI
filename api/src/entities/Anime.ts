@@ -54,7 +54,9 @@ export enum AnimeSource {
 };
 
 @Entity('anime')
-@Unique(['title'])
+@Unique(['title_english'])
+@Unique(['title_romaji'])
+@Unique(['title_native'])
 class Anime extends BaseEntity {
 
     constructor(
@@ -162,7 +164,7 @@ class Anime extends BaseEntity {
         () => Character,
         (character: Character) => character.anime
     )
-    @JoinTable()
+    @JoinTable({ name: "anime_characters" })
     characters: Character[];
 
     @ManyToOne(
