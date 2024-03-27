@@ -5,9 +5,11 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany
+    ManyToMany,
+    JoinTable
 } from 'typeorm';
-import AnimeCharacter from './AnimeCharacter.js';
+import Anime from './Anime.js';
+import VoiceActor from './VoiceActor.js';
 
 export enum CharacterType {
     MAIN = "main",
@@ -25,7 +27,8 @@ class Character extends BaseEntity {
         created_at: Date,
         updated_at: Date,
 
-        anime_character: AnimeCharacter,
+        anime: Anime[],
+        voice_actors: VoiceActor[]
     ) {
         super();
 
@@ -37,7 +40,8 @@ class Character extends BaseEntity {
         this.updated_at = updated_at;
 
         /* Relationship Fields */
-        this.anime_character = anime_character;
+        this.anime = anime;
+        this.voice_actors = voice_actors;
     };
 
     @PrimaryGeneratedColumn()
@@ -59,11 +63,19 @@ class Character extends BaseEntity {
     updated_at: Date;
 
     /* Relationships */
-    @OneToMany(
-        () => AnimeCharacter,
-        (anime_characters: AnimeCharacter) => anime_characters.character,
+    @ManyToMany(
+        () => Anime,
+        (anime: Anime) => anime.characters,
+        { cascade: true, onDelete: "SET NULL" }
     )
-    anime_character: AnimeCharacter;
+    anime: Anime[];
+
+    @ManyToMany(
+        () => VoiceActor,
+        (voice_actor: VoiceActor) => voice_actor.characters
+    )
+    @JoinTable()
+    voice_actors: VoiceActor[];
 };
 
 export default Character;

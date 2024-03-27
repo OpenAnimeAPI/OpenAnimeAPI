@@ -6,10 +6,10 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     Unique,
-    OneToMany
+    ManyToMany,
+    JoinTable
 } from 'typeorm';
-import AnimeCharacter from './AnimeCharacter.js';
-import AnimeCharacterVoiceActor from './AnimeCharacterVoiceActor.js';
+import Character from './Character.js';
 
 @Entity('voice_actors')
 @Unique(['first_name', 'last_name'])
@@ -23,7 +23,7 @@ class VoiceActor extends BaseEntity {
         created_at: Date,
         updated_at: Date,
 
-        anime_character_voice_actors: AnimeCharacterVoiceActor
+        characters: Character[]
     ) {
         super();
 
@@ -35,7 +35,7 @@ class VoiceActor extends BaseEntity {
         this.updated_at = updated_at;
 
         /* Relationships */
-        this.anime_character_voice_actors = anime_character_voice_actors;
+        this.characters = characters;
     };
 
     @PrimaryGeneratedColumn()
@@ -57,11 +57,12 @@ class VoiceActor extends BaseEntity {
     updated_at: Date;
 
     /* Relationships */
-    @OneToMany(
-        () => AnimeCharacterVoiceActor,
-        (anime_character_voice_actors: AnimeCharacterVoiceActor) =>  anime_character_voice_actors.voice_actors
+    @ManyToMany(
+        () => Character,
+        (character: Character) =>  character.voice_actors,
+        { cascade: true, onDelete: "SET NULL" }
     )
-    anime_character_voice_actors: AnimeCharacterVoiceActor;
+    characters: Character[];
 };
 
 export default VoiceActor;

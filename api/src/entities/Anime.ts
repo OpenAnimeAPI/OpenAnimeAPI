@@ -6,10 +6,12 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     OneToMany,
-    Unique
+    ManyToMany,
+    Unique,
+    JoinTable
 } from 'typeorm';
-import AnimeCharacter from './AnimeCharacter.js';
-import AnimeStudio from './AnimeStudio.js';
+import Character from './Character.js';
+import Studio from './Studio.js';
 
 export enum AnimeStatus {
     AIRING = "airing",
@@ -33,8 +35,8 @@ class Anime extends BaseEntity {
         created_at: Date,
         updated_at: Date,
 
-        anime_character: AnimeCharacter,
-        anime_studio: AnimeStudio
+        characters: Character[],
+        studios: Studio[]
     ) {
         super();
 
@@ -50,8 +52,8 @@ class Anime extends BaseEntity {
         this.updated_at = updated_at;
 
         /* Relationships */
-        this.anime_character = anime_character;
-        this.anime_studio = anime_studio;
+        this.characters = characters;
+        this.studios = studios;
     };
 
     @PrimaryGeneratedColumn()
@@ -69,7 +71,11 @@ class Anime extends BaseEntity {
     @Column({ type: "int" })
     episodes: number;
 
-    @Column({ type: "enum", enum: AnimeStatus, default: AnimeStatus.UPCOMING })
+    @Column({ 
+        type: "enum", 
+        enum: AnimeStatus, 
+        default: AnimeStatus.UPCOMING
+    })
     status: string;
 
     @Column({ type: "timestamptz" })
@@ -85,17 +91,18 @@ class Anime extends BaseEntity {
     updated_at: Date
 
     /* Relationships */
-    @OneToMany(
-        () => AnimeCharacter,
-        (anime_character: AnimeCharacter) => anime_character.anime
+    @ManyToMany(
+        () => Character,
+        (character: Character) => character.anime
     )
-    anime_character: AnimeCharacter;
+    @JoinTable()
+    characters: Character[];
 
     @OneToMany(
-        () => AnimeStudio,
-        (anime_studio: AnimeStudio) => anime_studio.anime
+        () => Studio,
+        (studio: Studio) => studio.anime
     )
-    anime_studio: AnimeStudio;
+    studios: Studio[];
 };
 
 export default Anime;
