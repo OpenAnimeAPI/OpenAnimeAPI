@@ -74,7 +74,7 @@ class Character extends BaseEntity {
         () => VoiceActor,
         (voice_actor: VoiceActor) => voice_actor.characters
     )
-    @JoinTable()
+    @JoinTable({ name: "character_voice_actors" })
     voice_actors: VoiceActor[];
 };
 
