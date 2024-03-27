@@ -6,10 +6,15 @@ interface Params {
     id: number
 };
 
+/**
+ * Retrieves a single Anime entity by its ID.
+ * 
+ * @param req - The Express Request object.
+ * @param res - The Express Response object.
+ * @param next - The Express NextFunction middleware.
+ * @returns A JSON response containing the Anime entity if found, or an error response if not found.
+ */
 
-    
-
-// Read
 async function read(req: Request, res: Response<Params>, next: NextFunction) {
     const { params } = res.locals;
     const { id } = req.params;
@@ -20,8 +25,14 @@ async function read(req: Request, res: Response<Params>, next: NextFunction) {
         }
     });
 
-    if(animeErr) {
-        return errors.sendResponse({ res, status: 500, err: animeErr, message: "Error Reading Anime" });
+    if (animeErr || !anime) {
+        return errors.sendEntitiesResponse({
+            res,
+            err: animeErr,
+            message: "Error finding Anime",
+            entityReturn: anime,
+            missingEntityReturnMessage: "Unable to find Anime"
+        });
     }
 
     if(!anime) {

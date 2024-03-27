@@ -7,6 +7,23 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
+/**
+ * Represents an anime entity.
+ * 
+ * @class Anime
+ * @extends BaseEntity
+ * @property {number} id - The unique identifier for the anime.
+ * @property {string} title - The title of the anime.
+ * @property {string} description - The description of the anime.
+ * @property {string} format - The format of the anime.
+ * @property {number} episodes - The number of episodes in the anime.
+ * @property {string} status - The status of the anime.
+ * @property {number} rating - The rating of the anime.
+ * @property {Date} release_date - The release date of the anime.
+ * @property {Date} start_date - The start date of the anime.
+ * @property {Date} end_date - The end date of the anime.
+ * @returns {Anime} - A new Anime entity.
+ */
 @Entity('animes')
 class Anime extends BaseEntity {
 
@@ -17,6 +34,8 @@ class Anime extends BaseEntity {
         format: string,
         episodes: number,
         status: string,
+        rating: number,
+        release_date: Date,
         start_date: Date,
         end_date: Date
     ) {
@@ -27,6 +46,8 @@ class Anime extends BaseEntity {
         this.format = format;
         this.episodes = episodes;
         this.status = status;
+        this.rating = rating;
+        this.release_date = release_date;
         this.start_date = start_date;
         this.end_date = end_date;
     };
@@ -48,6 +69,12 @@ class Anime extends BaseEntity {
 
     @Column({ type: "varchar", nullable: true })
     status: string;
+
+    @Column({ type: "int", nullable: true })
+    rating: number;
+
+    @Column({ type: "date", nullable: true })
+    release_date: Date;
 
     @CreateDateColumn()
     start_date: Date;

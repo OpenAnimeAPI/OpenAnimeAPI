@@ -6,6 +6,15 @@ interface Params {
     id: number
 };
 
+/**
+ * Deletes an Anime entity from the database.
+ *
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @param next - The Express next function.
+ * @returns A JSON response indicating the success or failure of the deletion.
+ */
+
 async function destroy(req: Request, res: Response<Params>, next: NextFunction) {
     const { params } = res.locals;
     const { id } = req.params;
@@ -14,8 +23,14 @@ async function destroy(req: Request, res: Response<Params>, next: NextFunction) 
         id: id
     });
 
-    if(animeErr) {
-        return errors.sendResponse({ res, status: 500, err: animeErr, message: "Error Deleting Anime" });
+    if(animeErr || !anime) {
+        return errors.sendEntitiesResponse({
+            res,
+            err: animeErr,
+            message: "Error deleting Anime",
+            entityReturn: anime,
+            missingEntityReturnMessage: "Unable to delete Anime"
+        });
     }
 
     return res.json({ message: "Anime deleted successfully" });
