@@ -5,9 +5,10 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany
+    OneToMany,
+    ManyToOne
 } from 'typeorm';
-import AnimeStudio from './AnimeStudio.js';
+import Anime from './Anime.js';
 
 @Entity('studios')
 class Studio extends BaseEntity {
@@ -18,7 +19,7 @@ class Studio extends BaseEntity {
         created_at: Date,
         updated_at: Date,
 
-        anime_studio: AnimeStudio
+        anime: Anime
     ) {
         super();
 
@@ -28,7 +29,7 @@ class Studio extends BaseEntity {
         this.updated_at = updated_at;
 
         /* Relationships */
-        this.anime_studio = anime_studio;
+        this.anime = anime;
     };
 
     @PrimaryGeneratedColumn()
@@ -44,11 +45,11 @@ class Studio extends BaseEntity {
     updated_at: Date;
 
     /* Relationships */
-    @OneToMany(
-        () => AnimeStudio,
-        (anime_studio: AnimeStudio) => anime_studio.studio
+    @ManyToOne(
+        () => Anime,
+        (anime: Anime) => anime.studios
     )
-    anime_studio: AnimeStudio;
+    anime: Anime;
 };
 
 export default Studio;
