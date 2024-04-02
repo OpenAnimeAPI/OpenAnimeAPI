@@ -1,1 +1,1 @@
-export { default as animeRoutes} from '@@root/routes/anime/animeRoutes';
+export { default as animeRoutes } from './anime/index';

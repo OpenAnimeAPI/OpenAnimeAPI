@@ -1,1 +1,1 @@
-export * as animeController from './anime/index';
+export * as animeController from './anime/index.js';

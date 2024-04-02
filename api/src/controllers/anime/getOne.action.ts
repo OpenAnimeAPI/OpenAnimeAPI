@@ -15,7 +15,7 @@ interface Params {
  * @returns A JSON response containing the Anime entity if found, or an error response if not found.
  */
 
-async function read(req: Request, res: Response<Params>, next: NextFunction) {
+async function getOne(req: Request, res: Response<Params>, next: NextFunction) {
     const { params } = res.locals;
     const { id } = req.params;
 
@@ -42,4 +42,4 @@ async function read(req: Request, res: Response<Params>, next: NextFunction) {
     return res.json({ results: anime });
 };
 
-export default read;
+export default getOne;
