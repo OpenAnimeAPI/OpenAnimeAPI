@@ -105,16 +105,16 @@ class Anime extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: "varchar", length: 255, nullable: false })
+    @Column({ type: "varchar", length: 255 })
     title_english: string;
 
-    @Column({ type: "varchar", length: 255, nullable: false })
+    @Column({ type: "varchar", length: 255 })
     title_romaji: string;
 
-    @Column({ type: "varchar", length: 255, nullable: false })
+    @Column({ type: "varchar", length: 255 })
     title_native: string;
 
-    @Column({ type : "varchar", length: 255, nullable: false })
+    @Column({ type : "varchar", length: 255 })
     description: string;
 
     @Column({ 
