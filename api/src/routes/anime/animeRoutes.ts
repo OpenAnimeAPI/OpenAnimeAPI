@@ -6,8 +6,7 @@ const animeRoutes = express.Router();
 
 animeRoutes.route("/").get(extractPaginationParams, animeController.index);
 
-animeRoutes.route("/anime/id/:id")
-    .post(validation.id, animeController.create)
+animeRoutes.route("/id/:id")
     .get(validation.id, animeController.getOne)
     .put(validation.id, animeController.update)
     .delete(validation.id, animeController.destroy);

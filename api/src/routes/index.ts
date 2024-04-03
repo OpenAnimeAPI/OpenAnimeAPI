@@ -1,1 +1,1 @@
-export { default as animeRoutes } from './anime/index';
+export { default as animeRoutes } from './anime/index.js';
