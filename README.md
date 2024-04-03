@@ -34,6 +34,7 @@ TESTING_DB_PORT=5432
 * `start_dev.sh` - docker compose command to build and start the development server
 * `test_api.sh` - drops all database tables so TypeORM can repopulate updated entities and runs Jest tests from `api/src/__tests__/`
 * `test_db_shell.sh` - opens the shell for the testing database to run commands
+* `clean_environment.sh` - prunes all docker containers/volumes/images, removes database data directories and TypeScript build directories
 
 ### Start Up
 
@@ -57,31 +58,49 @@ the `LIMIT` variable which handles how many database objects you want to send in
 
 Example:
 ```typescript
-import { Request, Response, NextFunction } from 'express';
+import { 
+    Request, 
+    Response, 
+    NextFunction, 
+    PaginatedResponse as PaginatedExpressResponse
+} from '@@types/express.js';
+import { PaginatedResponse } from '@@types/pagination.js';
 
-import { User } from '../../../entities/index.js';
-import { errors, entities, pagination } from '../../../utils/index.js';
+import { User } from '@@entities/index.js';
+import { errors, entities, pagination } from '@@utils/index.js';
 
-async function index(req: Request, res: Response, next: NextFunction) {
+async function index(req: Request, res: PaginatedExpressResponse, next: NextFunction) {
     
-    const { limit, offset } = res.locals;
+    const { limit, offset } = res.locals.pagination;
 
     const [users, err] = await entities.indexAndCount<User>(User, {
         limit, offset
     });
 
-    if(err) {
-        return errors.sendResponse({ res, status: 500, err, message: "Error finding Users" });
+    if(err || !fortunes) {
+        return errors.sendEntitiesResponse({
+            res,
+            err,
+            message: "Error Finding Users",
+            entityReturn: users,
+            missingEntityReturn: "Unable to Find Users"
+        });
     }
 
-    if(!fortunes) {
-        return errors.sendResponse({ res, status: 404, message: "No Users found" });
-    }
-
-    const response: PaginatedResponse<Fortune> = pagination.paginateResponse<Fortune>(req, res, fortunes);
+    const response: PaginatedResponse<User> = pagination.paginateResponse<User>(req, res, user);
 
     return res.json(response);
 };
 
 export default index;
 ```
+
+### Technologies Used
+
+- Docker
+- Bun
+- TypeScript
+- SWC
+- Jest
+- Supertest
+- PostgreSQL
