@@ -4,7 +4,9 @@ import { extractPaginationParams, validation } from "@@middleware/index.js";
 
 const animeRoutes = express.Router();
 
-animeRoutes.route("/").get(extractPaginationParams, animeController.index);
+animeRoutes.route("/")
+    .get(extractPaginationParams, animeController.index)
+    .post(validation.id, animeController.create);
 
 animeRoutes.route("/id/:id")
     .get(validation.id, animeController.getOne)
@@ -12,3 +14,4 @@ animeRoutes.route("/id/:id")
     .delete(validation.id, animeController.destroy);
 
 export default animeRoutes;
+    
