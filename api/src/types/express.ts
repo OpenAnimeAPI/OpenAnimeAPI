@@ -17,12 +17,12 @@ export interface Locals<T> {
     params: T
 };
 
-export type AuthenticatedResponse<T = any> = ExpressResponse<any, Pick<Locals<T>, "auth" | "params">>;
-export type PaginatedResponse<T = any> = ExpressResponse<any, Pick<Locals<T>, "pagination">>;
-export type AuthenticatedPaginatedResponse<T = any> = ExpressResponse<any, Locals<T>>;
+export type AuthenticatedResponse<T = unknown> = ExpressResponse<unknown, Pick<Locals<T>, "auth" | "params">>;
+export type PaginatedResponse<T = unknown> = ExpressResponse<unknown, Pick<Locals<T>, "pagination">>;
+export type AuthenticatedPaginatedResponse<T = unknown> = ExpressResponse<unknown, Locals<T>>;
 
 export type APResponse = AuthenticatedPaginatedResponse;
 
-export type Request<T = any, D = any> = ExpressRequest<D, any, T>;
-export type Response<T = any> = ExpressResponse<any, Partial<Locals<T>>>;
+export type Request<T = unknown, D = unknown> = ExpressRequest<D, unknown, T>;
+export type Response<T = unknown> = ExpressResponse<unknown, Partial<Locals<T>>>;
 export type NextFunction = ExpressNextFunction;
