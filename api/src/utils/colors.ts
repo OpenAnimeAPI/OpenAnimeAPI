@@ -7,6 +7,11 @@ export const error: number = 0xff0000;
 export const topgg: number = 0xff3366;
 export const banana: number = 0xffcc00;
 
+/**
+ * Grabs a list of all variables exported by this file, and returns a random one
+ * @param this 
+ * @returns 
+ */
 export function random(this: object): number {
     const self = this;
 
