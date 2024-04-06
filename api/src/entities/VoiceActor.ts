@@ -6,8 +6,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     Unique,
-    ManyToMany,
-    JoinTable
+    ManyToMany
 } from 'typeorm';
 import Character from './Character.js';
 
