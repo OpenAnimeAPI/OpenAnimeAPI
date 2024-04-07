@@ -1,5 +1,5 @@
 import express from 'express';
-import animeRoutes from '@@root/routes/anime/animeRoutes';
+import animeRoutes from '@@routes/anime/animeRoutes.js';
 
 const router = express.Router();
 

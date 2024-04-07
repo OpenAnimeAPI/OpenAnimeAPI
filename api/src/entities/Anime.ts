@@ -57,6 +57,7 @@ export enum AnimeSource {
 @Unique(['title_english'])
 @Unique(['title_romaji'])
 @Unique(['title_native'])
+
 class Anime extends BaseEntity {
 
     constructor(
