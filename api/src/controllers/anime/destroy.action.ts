@@ -7,14 +7,13 @@ interface Params {
 };
 
 /**
- * Deletes an Anime entity from the database.
- *
- * @param req - The Express request object.
- * @param res - The Express response object.
- * @param next - The Express next function.
- * @returns A JSON response indicating the success or failure of the deletion.
+ * Deletes an anime by its ID.
+ * 
+ * @param {Request} req - The request object.
+ * @param {Response<Params>} res - The response object.
+ * @param {NextFunction} next - The next function.
+ * @returns {Promise<void>} - A promise that resolves when the anime is deleted successfully.
  */
-
 async function destroy(req: Request, res: Response<Params>, next: NextFunction) {
     const { params } = res.locals;
     const { id } = req.params;

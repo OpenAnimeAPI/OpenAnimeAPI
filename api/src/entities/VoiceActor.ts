@@ -11,6 +11,9 @@ import {
 } from 'typeorm';
 import Character from './Character.js';
 
+/**
+ * Represents a voice actor in the anime industry.
+ */
 @Entity('voice_actors')
 @Unique(['first_name', 'last_name'])
 class VoiceActor extends BaseEntity {

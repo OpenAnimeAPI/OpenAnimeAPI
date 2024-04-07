@@ -33,9 +33,8 @@ interface Body {
  * @param {Request<Body>} req - The request object.
  * @param {Response<Params>} res - The response object.
  * @param {NextFunction} next - The next function.
- * @returns {Promise<void>} A promise that resolves when the anime is created.
+ * @returns {Promise<void>} - A promise that resolves with the created anime.
  */
-
 async function create(req: Request<Body>, res: Response<Params>, next: NextFunction) {
     const { params } = res.locals;
     const { id } = params;

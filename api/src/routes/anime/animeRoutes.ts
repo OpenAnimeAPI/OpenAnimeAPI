@@ -2,6 +2,9 @@ import express from "express";
 import { animeController } from "@@controllers/index.js";
 import { extractPaginationParams, validation } from "@@middleware/index.js";
 
+/**
+ * Express router for anime routes.
+ */
 const animeRoutes = express.Router();
 
 animeRoutes.route("/")

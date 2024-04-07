@@ -7,12 +7,12 @@ interface Params {
 };
 
 /**
- * Retrieves a single Anime entity by its ID.
+ * Retrieves a single anime by its ID.
  * 
- * @param req - The Express Request object.
- * @param res - The Express Response object.
- * @param next - The Express NextFunction middleware.
- * @returns A JSON response containing the Anime entity if found, or an error response if not found.
+ * @param {Request} req - The request object.
+ * @param {Response<Params>} res - The response object.
+ * @param {NextFunction} next - The next middleware function.
+ * @returns {Promise<void>} - A promise that resolves when the anime is retrieved.
  */
 
 async function getOne(req: Request, res: Response<Params>, next: NextFunction) {

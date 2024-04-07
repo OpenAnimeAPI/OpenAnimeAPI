@@ -29,12 +29,12 @@ interface Body {
 
 // Update
 /**
- * Updates an Anime entity.
- *
- * @param req - The request object.
- * @param res - The response object.
- * @param next - The next function.
- * @returns A JSON response with the updated Anime entity.
+ * Updates an anime.
+ * 
+ * @param {Request<Body>} req - The request object.
+ * @param {Response<Params>} res - The response object.
+ * @param {NextFunction} next - The next function.
+ * @returns {Promise<void>} - A promise that resolves when the update is complete.
  */
 async function update(req: Request<Body>, res: Response<Params>, next: NextFunction) {
     const { params } = res.locals;
