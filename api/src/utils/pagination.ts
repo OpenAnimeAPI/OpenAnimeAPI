@@ -1,17 +1,17 @@
-import type { Request, Response } from 'express';
+import type { Request, Response } from '@@types/express.js';
 import type { PaginationUrl, PaginatedResponse } from '@@types/pagination.js';
 
 import { ENV } from '@@constants/index.js';
 
-export function paginateResponse<T>(req: Request, res: Response, results: [T[], number]): PaginatedResponse<T> {
+export function paginateResponse<T>(req: Request, res: Response<"pagination">, results: [T[], number]): PaginatedResponse<T> {
 
     const baseUrl = ENV.IS_DEV ? `${ENV.BASE_URL}:${ENV.API_PORT}` : ENV.BASE_URL;
 
-    const { page, limit } = res.locals;
+    const { page, limit } = res.locals.pagination;
     const regEx: RegExp = /(?=\?)(.*)/gi;
     const requestedUrl: string = req.originalUrl.replace(regEx, "");
 
-    let count = results[1];
+    const count = results[1];
     let next: PaginationUrl = null;
     let prev: PaginationUrl = null;
 
