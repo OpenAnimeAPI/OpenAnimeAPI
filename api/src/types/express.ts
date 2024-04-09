@@ -17,12 +17,6 @@ export interface Locals<T> {
     params: T
 };
 
-export type AuthenticatedResponse<T = unknown> = ExpressResponse<unknown, Pick<Locals<T>, "auth" | "params">>;
-export type PaginatedResponse<T = unknown> = ExpressResponse<unknown, Pick<Locals<T>, "pagination">>;
-export type AuthenticatedPaginatedResponse<T = unknown> = ExpressResponse<unknown, Locals<T>>;
-
-export type APResponse = AuthenticatedPaginatedResponse;
-
 export type Request<T = unknown, D = unknown> = ExpressRequest<D, unknown, T>;
-export type Response<T = unknown> = ExpressResponse<unknown, Partial<Locals<T>>>;
+export type Response<T extends keyof Locals<D> = "params", D = unknown> = ExpressResponse<unknown, Pick<Locals<D>, T>>
 export type NextFunction = ExpressNextFunction;
