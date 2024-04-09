@@ -6,7 +6,7 @@ import JWT from 'jsonwebtoken';
 import { ENV } from '@@constants/index.js';
 import { errors } from '@@utils/index.js';
 
-async function verifyToken(req: Request, res: Response, next: NextFunction) {
+async function verifyToken(req: Request, res: Response<"auth">, next: NextFunction) {
     const bearerHeader = req.headers['authorization'];
 
     if(typeof bearerHeader === 'undefined') {
