@@ -13,10 +13,8 @@ export const banana: number = 0xffcc00;
  * @returns 
  */
 export function random(this: object): number {
-    const self = this;
-
-    const keys = Object.keys(self).filter((key: string) => key !== "random");
+    const keys = Object.keys(this).filter((key: string) => key !== "random");
     const randomKey = keys[common.RNG(keys.length - 1)];
 
-    return (self as any)[randomKey] as number;
+    return (this as Record<string, number>)[randomKey];
 };
