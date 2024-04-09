@@ -14,7 +14,7 @@ async function id(req: Request, res: Response, next: NextFunction) {
         res.locals.params = {};
     }
 
-    const errorFunc: Function = () => {
+    const errorFunc: () => void = () => {
         return errors.sendResponse({ 
             res, 
             status: 400, 
