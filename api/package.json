@@ -8,6 +8,7 @@
     "dev": "nodemon -L --ext ts --exec \"bun run build-dev\"",
     "start": "bun run build && NODE_ENV=production node dist/server.js",
     "test": "NODE_ENV=test jest --setupFiles dotenv/config --runInBand",
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "reset:npm": "rm -rf node_modules && bun install"
   },
   "type": "module",
