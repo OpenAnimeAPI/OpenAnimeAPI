@@ -30,4 +30,4 @@ jobs:
         
       - name: Run Api Test Script
         run: |
-          ./scripts/tests/start_api_test.sh
+          ./scripts/start_api_test.sh
