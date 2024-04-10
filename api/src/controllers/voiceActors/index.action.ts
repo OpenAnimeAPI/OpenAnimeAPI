@@ -1,7 +1,7 @@
 import type { Request, Response } from '@@types/express.js';
 
-import { VoiceActor } from '@@entities/index';
-import { entities, errors, pagination } from '@@utils/index';
+import { VoiceActor } from '@@entities/index.js';
+import { entities, errors, pagination } from '@@utils/index.js';
 
 async function index(req: Request, res: Response<"pagination">) {
     
