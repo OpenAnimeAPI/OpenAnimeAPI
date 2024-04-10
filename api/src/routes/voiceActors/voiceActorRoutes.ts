@@ -1,15 +1,16 @@
 import express from 'express';
 import { voiceActorsController } from '@@controllers/index.js';
+import { extractPaginationParams, validation } from '@@middleware/index.js';
 
 const router = express.Router();
 
 router.route("/")
-.get(voiceActorsController.index)
+.get(extractPaginationParams, voiceActorsController.index)
 .post(voiceActorsController.create)
 
 router.route("/id/:id")
-.get(voiceActorsController.getOne)
-.put(voiceActorsController.update)
-.delete(voiceActorsController.destroy)
+.get(validation.id, voiceActorsController.getOne)
+.put(validation.id, voiceActorsController.update)
+.delete(validation.id, voiceActorsController.destroy)
 
 export default router;
