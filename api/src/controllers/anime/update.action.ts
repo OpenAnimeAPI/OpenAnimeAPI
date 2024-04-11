@@ -21,10 +21,6 @@ interface Body {
         release_year?: number;
         start_date?: Date;
         end_date?: Date;
-        created_at?: Date;
-        updated_at?: Date;
-        characters?: Character[];
-        studio?: Studio;
     }
 
 // Update
@@ -42,14 +38,13 @@ async function update(req: Request<Body>, res: Response<Params>, next: NextFunct
     const { body } = req;
 
     const { title_english, title_romaji, title_native, description, format, episodes, episode_duration, source, 
-            status, release_year, start_date, end_date, created_at, updated_at, characters, studio } = req.body;
+            status, release_year, start_date, end_date } = req.body;
     if(!title_english || !title_romaji || !title_native || !description || !format || !episodes || !episode_duration || 
-        !source || !status || !release_year || !start_date || !end_date || !created_at || !updated_at || !characters || !studio) {
+        !source || !status || !release_year || !start_date || !end_date) {
         return errors.sendInvalidBody(res);
     };
 
-    const [anime, animeErr] = await entities.insert<Anime>(Anime, {
-        id: id,
+    const [anime, animeErr] = await entities.update<Anime>(Anime, {
         title_english: body.title_english,
         title_romaji: body.title_romaji,
         title_native: body.title_native,
@@ -62,10 +57,6 @@ async function update(req: Request<Body>, res: Response<Params>, next: NextFunct
         release_year: body.release_year,
         start_date: body.start_date,
         end_date: body.end_date,
-        created_at: body.created_at,
-        updated_at: body.updated_at,
-        characters: body.characters,
-        studio: body.studio
     });
 
     if(animeErr || !anime) {

@@ -35,10 +35,6 @@ async function getOne(req: Request, res: Response<Params>, next: NextFunction) {
         });
     }
 
-    if(!anime) {
-        return errors.sendResponse({ res, status: 404, message: "No Anime Found" });
-    }
-
     return res.json({ results: anime });
 };
 

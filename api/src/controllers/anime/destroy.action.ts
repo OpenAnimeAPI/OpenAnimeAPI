@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from '@@types/express.js';
 import { errors, entities } from '@@utils/index.js';
 import { Anime } from '@@entities/index.js';
+import { result } from 'validate.js';
 
 interface Params {
     id: number
@@ -32,7 +33,7 @@ async function destroy(req: Request, res: Response<Params>, next: NextFunction) 
         });
     }
 
-    return res.json({ message: "Anime deleted successfully" });
+    return res.json({ results: anime });
 };
 
 export default destroy;
