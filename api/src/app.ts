@@ -1,7 +1,7 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { animeRoutes } from './routes/index';
+import { animeRoutes } from './routes/index.js';
 
 function initializeApp(): Application {
     const app = express();
