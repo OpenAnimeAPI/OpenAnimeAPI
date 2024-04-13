@@ -10,6 +10,9 @@ import {
 } from 'typeorm';
 import Anime from './Anime.js';
 
+/**
+ * Represents a studio entity.
+ */
 @Entity('studios')
 class Studio extends BaseEntity {
 

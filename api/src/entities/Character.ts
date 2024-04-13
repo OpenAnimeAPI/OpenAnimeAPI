@@ -16,6 +16,9 @@ export enum CharacterType {
     SUPPORTING = "supporting"
 };
 
+/**
+ * Represents a character in an anime.
+ */
 @Entity('characters')
 class Character extends BaseEntity {
 

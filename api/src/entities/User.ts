@@ -7,6 +7,9 @@ import {
     UpdateDateColumn
 } from 'typeorm';
 
+/**
+ * Represents a user entity.
+ */
 @Entity('users')
 class User extends BaseEntity {
 

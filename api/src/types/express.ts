@@ -24,5 +24,5 @@ export type AuthenticatedPaginatedResponse<T = any> = ExpressResponse<any, Local
 export type APResponse = AuthenticatedPaginatedResponse;
 
 export type Request<T = any, D = any> = ExpressRequest<D, any, T>;
-export type Response<T = any> = ExpressResponse<any, Partial<Locals<T>>>;
+export type Response<T = any> = ExpressResponse<any, Pick<Locals<T>, "params">>;
 export type NextFunction = ExpressNextFunction;
