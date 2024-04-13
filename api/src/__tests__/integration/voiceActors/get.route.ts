@@ -47,7 +47,42 @@ function getRoute(baseEndpoint: string, app: Application, extraParams: VoiceActo
     });
 
     describe("given the id as a param", () => {
-    
+        describe("given the id DOES exist", () => {
+            it("should return a 200 status and the voice actor entity", async () => {
+                const endpoint = `${baseEndpoint}/id/${extraParams.entity?.id}`;
+                
+                const { body, statusCode } = await supertest(app)
+                .get(endpoint)
+                .send()
+
+                expect(statusCode).toBe(200);
+                expect(body.results).not.toBeNull();
+
+                const { results } = body;
+
+                expect(results.id).not.toBeNull();
+                expect(results.created_at).not.toBeNull();
+                expect(results.updated_at).not.toBeNull();
+
+                expect(results).toEqual({
+                    id: extraParams.entity?.id,
+                    first_name: extraParams.entity?.first_name,
+                    last_name: extraParams.entity?.last_name,
+                    country: extraParams.entity?.country,
+                    created_at: results.created_at,
+                    updated_at: results.updated_at
+                });
+            });
+        });
+
+        describe("given the id DOES NOT exist", () => {
+            it("should return a 404 status", async () => {
+                const endpoint = `${baseEndpoint}/id/63248761`;
+                await supertest(app)
+                .get(endpoint)
+                .expect(404)
+            });
+        });
     });
 };
 
