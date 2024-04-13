@@ -11,21 +11,35 @@ async function destroy(req: Request, res: Response<"params", Params>) {
 
     const { id } = res.locals.params;
 
-    const [voiceActor, err] = await entities.destroy<VoiceActor>(VoiceActor, {
-        id
+    const [voiceActor, findErr] = await entities.findOne<VoiceActor>(VoiceActor, {
+        where: {
+            id
+        }
     });
 
-    if(err || !voiceActor) {
+    if(findErr || !voiceActor) {
         return errors.sendEntitiesResponse({
             res,
-            err,
+            err: findErr,
             message: "Error deleting Voice Actor",
             entity: voiceActor,
             missingEntityMessage: "Unable to delete Voice Actor"
         });
     }
 
-    return res.json({ results: voiceActor });
+    const [deletedVoiceActor, deleteErr] = await entities.destroy<VoiceActor>(VoiceActor, voiceActor);
+
+    if(deleteErr || !deletedVoiceActor) {
+        return errors.sendEntitiesResponse({
+            res,
+            err: deleteErr,
+            message: "Error deleting Voice Actor",
+            entity: deletedVoiceActor,
+            missingEntityMessage: "Unable to delete Voice Actor"
+        });
+    }
+
+    return res.json({ results: deletedVoiceActor });
 };
 
 export default destroy;
