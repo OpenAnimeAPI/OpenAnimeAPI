@@ -1,4 +1,3 @@
-import { Character, Studio } from '@@entities/index.js';
 import Anime, { AnimeFormat, AnimeSource, AnimeStatus } from '@@entities/Anime.js';
 import type { Request, Response, NextFunction } from '@@types/express.js';
 import { entities, errors } from '@@utils/index.js';
