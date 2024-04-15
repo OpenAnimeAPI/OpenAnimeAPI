@@ -4,6 +4,7 @@ import type { VoiceActorExtraParams } from '@@tests/support/types/extraParams.js
 import supertest from 'supertest';
 import AppDataSource from '@@db/dataSource.js';
 import { VoiceActor } from '@@entities/index.js';
+import { truncateTable } from '@@tests/support/database.support.js';
 import * as PAYLOADS from '@@tests/support/payloads/voiceActor.payloads.js';
 
 function postRoute(baseEndpoint: string, app: Application, extraParams: VoiceActorExtraParams) {
@@ -11,7 +12,9 @@ function postRoute(baseEndpoint: string, app: Application, extraParams: VoiceAct
     /* Cleanup */
     afterAll(async () => {
         try {
-            await AppDataSource.getRepository(VoiceActor).remove(extraParams.entity as VoiceActor);
+            const repository = AppDataSource.getRepository(VoiceActor);
+            await repository.remove(extraParams.entity as VoiceActor);
+            await truncateTable<VoiceActor>(repository, "voice_actors");
         }
         catch {
             throw new Error(`
