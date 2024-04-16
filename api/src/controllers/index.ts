@@ -1,0 +1,1 @@
+export * as voiceActorsController from './voiceActors/index.js';

@@ -5,8 +5,7 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany,
-    ManyToOne
+    OneToMany
 } from 'typeorm';
 import Anime from './Anime.js';
 

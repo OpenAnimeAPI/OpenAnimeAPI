@@ -10,6 +10,7 @@
             "@@entities/*": ["./entities/*"],
             "@@middleware/*": ["./middleware/*"],
             "@@routes/*": ["./routes/*"],
+            "@@schemas/*": ["./schemas/*"],
             "@@services/*": ["./services/*"],
             "@@types/*": ["./types/*"],
             "@@utils/*": ["./utils/*"],

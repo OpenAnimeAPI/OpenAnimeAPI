@@ -1,7 +1,21 @@
-# OpenAnimeAPI
-Project to create a fully featured public Anime API
+<center>
+<img src="https://i.imgur.com/akjfvBJ.png" width="200" />
 
-### Environment Variables
+<h1>OpenAnimeAPI</h1>
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OpenAnimeAPI/OpenAnimeAPI/jest.yml?style=flat&logo=github&label=Tests)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/OpenAnimeAPI/OpenAnimeAPI/eslint.yml?style=flat&logo=github&label=ESLint)
+![GitHub Repo stars](https://img.shields.io/github/stars/OpenAnimeAPI/OpenAnimeAPI?style=social)
+
+
+</center>
+
+## What is OpenAnimeAPI?
+
+OpenAnimeAPI is a public API providing detailed information on Anime, Manga, Characters, Studios, and more.
+
+
+## Environment Variables
 
 Create a `.env` file in the root directory and add the following:
 
@@ -26,7 +40,7 @@ TESTING_DB_NAME=OpenAnimeAPI_Testing
 TESTING_DB_PORT=5432
 ```
 
-### Scripts
+## Scripts
 
 * `api_shell.sh` - opens shell for the api container to run commands
 * `clean_dist.sh` - deletes all existing `/dist/` directories for fresh builds from SWC and TypeScript
@@ -36,7 +50,7 @@ TESTING_DB_PORT=5432
 * `test_db_shell.sh` - opens the shell for the testing database to run commands
 * `clean_environment.sh` - prunes all docker containers/volumes/images, removes database data directories and TypeScript build directories
 
-### Start Up
+## Start Up
 
 - Make sure you have the following technologies installed
     - Docker - [Desktop](https://www.docker.com/products/docker-desktop/) | [CLI / Linux](https://docs.docker.com/engine/install/ubuntu/)
@@ -46,11 +60,11 @@ TESTING_DB_PORT=5432
 - `cd` into `/api` and run `bun install`
 - Run the `start_dev.sh` script in the `/scripts/` directory
 
-### Testing
+## Testing
 
 While the api docker container is running, run the `test_api.sh` script in the `/scripts/` directory
 
-### Notes
+## Notes
 
 - The project has unused middleware setup for pagination. The `defaults.ts` inside `/api/src/constants/` contains 
 the `LIMIT` variable which handles how many database objects you want to send in the response
@@ -95,7 +109,7 @@ async function index(req: Request, res: PaginatedExpressResponse, next: NextFunc
 export default index;
 ```
 
-### Technologies Used
+## Technologies Used
 
 - Docker
 - Bun

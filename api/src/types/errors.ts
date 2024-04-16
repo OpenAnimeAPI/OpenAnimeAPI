@@ -1,11 +1,13 @@
 import type { Response, NextFunction } from 'express';
+import type { ZodIssue } from 'zod';
 
 export interface SendResponseOptions {
     res: Response,
     next?: NextFunction,
     err?: Error,
     status?: 400 | 401 | 403 | 404 | 500,
-    message?: string
+    message?: string,
+    issues?: ZodIssue[]
 };
 
 export interface ErrorLogOptions {
@@ -24,6 +26,6 @@ export interface SendEntitiesResponseParams<T> {
     res: Response,
     err?: Error,
     message: string,
-    entityReturn?: T | null,
-    missingEntityReturnMessage: string
+    entity?: T | null,
+    missingEntityMessage: string
 };

@@ -1,3 +1,5 @@
 import { QueryFailedError } from 'typeorm';
 
-export type HandleReturn<T> = Promise<[T | null | undefined, Error | QueryFailedError | undefined]>;
+export type PromiseSuccess<T> = T | null | undefined;
+export type PromiseError<T> = T | QueryFailedError | undefined;
+export type PromiseTuple<T, D = Error> = Promise<[PromiseSuccess<T>, PromiseError<D>]>

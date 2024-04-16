@@ -1,15 +1,23 @@
-import { BaseEntity, EntityTarget, DeepPartial, FindOneOptions, FindManyOptions, QueryFailedError } from 'typeorm';
-import AppDataSource from '../db/dataSource.js';
+import type { IndexOptions } from '@@types/entities.js';
+import type { PromiseTuple } from '@@types/promises.js';
+import type { 
+    BaseEntity, 
+    EntityTarget, 
+    DeepPartial, 
+    FindOneOptions, 
+    FindManyOptions, 
+    QueryFailedError
+} from 'typeorm';
+
+import AppDataSource from '@@db/dataSource.js';
 
 import * as promises from './promises.js';
-import { OperationReturn, IndexOptions } from '../types/entities.js';
-import { HandleReturn } from '../types/promises.js';
-import { DEFAULTS, ERRORS } from '../constants/index.js';
+import { DEFAULTS, ERRORS } from '@@constants/index.js';
 
 type Target<T> = EntityTarget<T>;
 type Data<T> = DeepPartial<T>;
 
-export async function count<T extends BaseEntity>(entity: Target<T>, findOptions?: FindManyOptions<T>): Promise<HandleReturn<number>> {
+export async function count<T extends BaseEntity>(entity: Target<T>, findOptions?: FindManyOptions<T>): PromiseTuple<number> {
     const repository = AppDataSource.getRepository(entity);
 
     try {
@@ -22,7 +30,7 @@ export async function count<T extends BaseEntity>(entity: Target<T>, findOptions
     }
 };
 
-export async function destroy<T extends BaseEntity>(entity: Target<T>, data: Data<T>): Promise<HandleReturn<T>> {
+export async function destroy<T extends BaseEntity>(entity: Target<T>, data: Data<T>): PromiseTuple<T> {
     const repository = AppDataSource.getRepository(entity);
 
     try {
@@ -36,7 +44,7 @@ export async function destroy<T extends BaseEntity>(entity: Target<T>, data: Dat
     }
 };
 
-export async function find<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, options?: IndexOptions): Promise<HandleReturn<T[]>> {
+export async function find<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, options?: IndexOptions): PromiseTuple<T[]> {
 
     const repository = AppDataSource.getRepository(entity);
 
@@ -59,7 +67,7 @@ export async function find<T extends BaseEntity>(entity: Target<T>, findOptions:
     return [res, undefined];
 };
 
-export async function findAndCount<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, options?: IndexOptions): Promise<HandleReturn<[T[], number]>> {
+export async function findAndCount<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, options?: IndexOptions): PromiseTuple<[T[], number]> {
 
     const repository = AppDataSource.getRepository(entity);
 
@@ -82,7 +90,7 @@ export async function findAndCount<T extends BaseEntity>(entity: Target<T>, find
     return [res, undefined];
 };
 
-export async function findOne<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>): Promise<HandleReturn<T>> {
+export async function findOne<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>): PromiseTuple<T> {
 
     const repository = AppDataSource.getRepository(entity);
 
@@ -96,7 +104,7 @@ export async function findOne<T extends BaseEntity>(entity: Target<T>, findOptio
     return [res, undefined];
 };
 
-export async function findAndSaveOrUpdate<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, data: Data<T>): Promise<HandleReturn<T>> {
+export async function findAndSaveOrUpdate<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, data: Data<T>): PromiseTuple<T> {
 
     const [res, err] =  await findOne<T>(entity, findOptions);
 
@@ -111,7 +119,7 @@ export async function findAndSaveOrUpdate<T extends BaseEntity>(entity: Target<T
     return await save(entity, res as Data<T>);
 };
 
-export async function findAndUpdate<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, data: Data<T>): OperationReturn<T> {
+export async function findAndUpdate<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, data: Data<T>): PromiseTuple<T> {
 
     const repository = AppDataSource.getRepository(entity);
     
@@ -133,7 +141,7 @@ export async function findAndUpdate<T extends BaseEntity>(entity: Target<T>, fin
     return await save<T>(entity, (entityObj as Data<T>));
 };
 
-export async function findOrSave<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, data: Data<T>): Promise<HandleReturn<T>> {
+export async function findOrSave<T extends BaseEntity>(entity: Target<T>, findOptions: FindOneOptions<T>, data: Data<T>): PromiseTuple<T> {
 
     const repository = AppDataSource.getRepository(entity);
 
@@ -151,7 +159,7 @@ export async function findOrSave<T extends BaseEntity>(entity: Target<T>, findOp
     return [entityObj, undefined];
 };
 
-export async function index<T extends BaseEntity>(entity: Target<T>, options: IndexOptions): Promise<HandleReturn<T[]>> {
+export async function index<T extends BaseEntity>(entity: Target<T>, options: IndexOptions): PromiseTuple<T[]> {
 
     const repository = AppDataSource.getRepository(entity);
 
@@ -168,7 +176,7 @@ export async function index<T extends BaseEntity>(entity: Target<T>, options: In
     return [res, undefined];
 };
 
-export async function indexAndCount<T extends BaseEntity>(entity: Target<T>, options: IndexOptions): Promise<HandleReturn<[T[], number]>> {
+export async function indexAndCount<T extends BaseEntity>(entity: Target<T>, options: IndexOptions): PromiseTuple<[T[], number]> {
 
     const repository = AppDataSource.getRepository(entity);
 
@@ -185,7 +193,7 @@ export async function indexAndCount<T extends BaseEntity>(entity: Target<T>, opt
     return [res, undefined];
 };
 
-export async function insert<T extends BaseEntity>(entity: Target<T>, data: Data<T>): OperationReturn<T> {
+export async function insert<T extends BaseEntity>(entity: Target<T>, data: Data<T>): PromiseTuple<T> {
 
     try {
         return await save<T>(entity, data);
@@ -196,7 +204,7 @@ export async function insert<T extends BaseEntity>(entity: Target<T>, data: Data
     }
 };
 
-export async function save<T extends BaseEntity>(entity: Target<T>, data: Data<T>): Promise<OperationReturn<T>> {
+export async function save<T extends BaseEntity>(entity: Target<T>, data: Data<T>): PromiseTuple<T> {
 
     try {
         const repository = AppDataSource.getRepository(entity);
@@ -210,6 +218,6 @@ export async function save<T extends BaseEntity>(entity: Target<T>, data: Data<T
     }
 };
 
-export async function update<T extends BaseEntity>(entity: Target<T>, data: Data<T>): OperationReturn<T> {
+export async function update<T extends BaseEntity>(entity: Target<T>, data: Data<T>): PromiseTuple<T> {
     return await save<T>(entity, data);
 };

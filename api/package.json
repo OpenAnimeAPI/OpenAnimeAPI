@@ -8,6 +8,7 @@
     "dev": "nodemon -L --ext ts --exec \"bun run build-dev\"",
     "start": "bun run build && NODE_ENV=production node dist/server.js",
     "test": "NODE_ENV=test jest --setupFiles dotenv/config --runInBand",
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "reset:npm": "rm -rf node_modules && bun install"
   },
   "type": "module",
@@ -26,7 +27,8 @@
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",
     "typeorm": "^0.3.20",
-    "validate.js": "^0.13.1"
+    "validate.js": "^0.13.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.62",
@@ -36,13 +38,17 @@
     "@types/chalk": "^2.2.0",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^8.2.0",
+    "@types/eslint": "^8.56.7",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.11.25",
     "@types/supertest": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
     "bun-types": "^1.0.30",
+    "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
     "supertest": "^6.3.4",

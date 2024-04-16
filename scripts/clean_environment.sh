@@ -2,9 +2,12 @@
 
 cd "$(dirname "$0")/.." || exit
 
-# Check for running docker containers and stop them if they exist
-if [ $( docker ps -a | wc -l ) -gt 1 ]; then
-    echo docker stop $(docker container ls -q) && docker system prune -a -f
+# Check if there are any running containers
+running_containers=$(docker ps -q -f status=running)
+
+if [ ! -z "$running_containers" ]; then
+    echo "Stopping running Docker containers..."
+    docker stop $running_containers
 else
     echo "No docker containers running, skipping..."
 fi

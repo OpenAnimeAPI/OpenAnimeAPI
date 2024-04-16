@@ -70,6 +70,7 @@ class Anime extends BaseEntity {
         episode_duration: number,
         source: AnimeSource,
         status: AnimeStatus,
+        season: AnimeSeason,
         release_year: number,
         start_date: Date,
         end_date: Date,
@@ -91,6 +92,7 @@ class Anime extends BaseEntity {
         this.episode_duration = episode_duration;
         this.source = source;
         this.status = status;
+        this.season = season;
         this.release_year = release_year;
         this.start_date = start_date;
         this.end_date = end_date;
@@ -143,6 +145,12 @@ class Anime extends BaseEntity {
         default: AnimeStatus.UPCOMING
     })
     status: AnimeStatus;
+
+    @Column({
+        type: "enum",
+        enum: AnimeSeason
+    })
+    season: AnimeSeason;
 
     @Column({ type: "int" })
     release_year: number;

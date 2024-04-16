@@ -1,12 +1,12 @@
 import type { Request, Response, NextFunction } from '@@types/express.js';
 import type { AuthPayload } from '@@types/auth.js';
 
-import JWT, { JwtPayload } from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
 
 import { ENV } from '@@constants/index.js';
 import { errors } from '@@utils/index.js';
 
-async function verifyToken(req: Request, res: Response, next: NextFunction) {
+async function verifyToken(req: Request, res: Response<"auth">, next: NextFunction) {
     const bearerHeader = req.headers['authorization'];
 
     if(typeof bearerHeader === 'undefined') {
